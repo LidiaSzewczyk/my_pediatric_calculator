@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+    <div class="alert alert-success" role="alert">
+        <ul class="list-group">
+            {% if birth_date %}
+                <li class="list-group-item">
+                    <b> Data urodzenia: </b>{{ birth_date }}&nbsp;&nbsp;&nbsp;&nbsp;<b> Wiek&nbsp;</b>
+                    {% for k, v in  age.items %}
+                        {% if  v != 0 %}
+                            {{ k }} {{ v }}&nbsp;&nbsp;
+                        {% endif %}
+                    {% endfor %}
+                </li>
+            {% endif %}
+
+            {% if  bmi %}
+                <li class="list-group-item">
+                    <b>BMI </b> {{ bmi }}
+                    <br>Wykres dla dzieci powyżej 5 roku życia:&nbsp;
+    <a class="mylink" target="_blank" href="https://cdn.who.int/media/docs/default-source/child-growth/growth-reference-5-19-years/bmi-for-age-(5-19-years)/bmifa-girls-z-5-19-labels.pdf?sfvrsn=94b20617_4">dziewczynki</a>&nbsp;&nbsp;&nbsp;
+    <a class="mylink" target="_blank"  href="https://cdn.who.int/media/docs/default-source/child-growth/growth-reference-5-19-years/bmi-for-age-(5-19-years)/bmifa-boys-z-5-19-labels.pdf?sfvrsn=5775aced_4">chłopcy</a>
+                </li>
+            {% endif %}
+            {% if glucose_calculated %}
+                <li class="list-group-item">
+                    <b> Glukoza:</b> {{ glucose_calculated.0 }} {{ glucose_calculated.1 }}
+                    = {{ glucose_calculated.2 }} {{ glucose_calculated.3 }}
+                </li>
+            {% endif %}
+
+            {% if  heart_rate %}
+                <li class="list-group-item">
+                    <b>Akcja serca </b> {{ heart_rate }} /min
+                </li>
+                {% if qtc %}
+                    <li class="list-group-item">
+                        <b>QTC </b>&nbsp;
+                        Wzór Bazetta {{ qtc.0 }} s; &nbsp;&nbsp;
+                        Wzór Fridericii {{ qtc.1 }} s
+
+                    </li>
+                {% endif %}
+
+            {% endif %}
+        </ul>
+    </div>
+    <div>
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button type="submit" class="btn btn-success">Oblicz</button>
+        </form>
+
+        <br>
+    </div>
+
+{% endblock content %}

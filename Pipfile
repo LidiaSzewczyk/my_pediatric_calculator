@@ -1,0 +1,18 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "==3.2.8"
+python-dateutil = "*"
+django-crispy-forms = "==1.13.0"
+crispy-bootstrap5 = "*"
+pytest = "*"
+pytest-django = "*"
+pytest-cov = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.10"
